@@ -13,6 +13,7 @@ const initialState: AppState = {
   filter: 'all',
   sortBy: 'createdAt',
   searchTerm: '',
+  selectedTag: null,
 };
 
 // Reducer 函数
@@ -68,6 +69,28 @@ const taskReducer = (state: AppState, action: TaskAction): AppState => {
         searchTerm: action.payload,
       };
     
+    case 'SET_SELECTED_TAG':
+      return {
+        ...state,
+        selectedTag: action.payload,
+      };
+    
+    case 'REORDER_TASKS':
+      const { sourceIndex, destinationIndex } = action.payload;
+      const newTasks = [...state.tasks];
+      const [movedTask] = newTasks.splice(sourceIndex, 1);
+      newTasks.splice(destinationIndex, 0, movedTask);
+      // 更新排序顺序
+      const reorderedTasks = newTasks.map((task, index) => ({
+        ...task,
+        order: index,
+        updatedAt: Date.now()
+      }));
+      return {
+        ...state,
+        tasks: reorderedTasks,
+      };
+    
     default:
       return state;
   }
@@ -77,13 +100,16 @@ const taskReducer = (state: AppState, action: TaskAction): AppState => {
 export interface TaskContextType {
   state: AppState;
   filteredTasks: Task[];
-  addTask: (title: string) => Task;
+  addTask: (task: Partial<Task>) => Task;
   updateTask: (id: string, updates: Partial<Task>) => void;
   deleteTask: (id: string) => void;
   toggleTask: (id: string) => void;
   setFilter: (filter: 'all' | 'completed' | 'active') => void;
-  setSortBy: (sortBy: 'createdAt' | 'completed') => void;
+  setSortBy: (sortBy: 'createdAt' | 'completed' | 'priority' | 'dueDate' | 'order') => void;
   setSearchTerm: (searchTerm: string) => void;
+  setSelectedTag: (tag: string | null) => void;
+  reorderTasks: (sourceIndex: number, destinationIndex: number) => void;
+  getAllTags: () => string[];
 }
 
 // 创建 Context
@@ -95,7 +121,7 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   // 计算筛选和排序后的任务
   const filteredTasks = sortTasks(
-    filterTasks(state.tasks, state.filter, state.searchTerm),
+    filterTasks(state.tasks, state.filter, state.searchTerm, state.selectedTag),
     state.sortBy
   );
 
@@ -105,11 +131,16 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, [state.tasks]);
 
   // 操作函数
-  const addTask = (title: string): Task => {
+  const addTask = (taskData: Partial<Task>): Task => {
     const newTask: Task = {
       id: uuidv4(),
-      title: title.trim(),
+      title: taskData.title?.trim() || '',
+      description: taskData.description || '',
       completed: false,
+      priority: taskData.priority || 'medium',
+      dueDate: taskData.dueDate || null,
+      tags: taskData.tags || [],
+      order: state.tasks.length,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     };
@@ -133,12 +164,28 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     dispatch({ type: 'SET_FILTER', payload: filter });
   };
 
-  const setSortBy = (sortBy: 'createdAt' | 'completed') => {
+  const setSortBy = (sortBy: 'createdAt' | 'completed' | 'priority' | 'dueDate' | 'order') => {
     dispatch({ type: 'SET_SORT_BY', payload: sortBy });
   };
 
   const setSearchTerm = (searchTerm: string) => {
     dispatch({ type: 'SET_SEARCH_TERM', payload: searchTerm });
+  };
+
+  const setSelectedTag = (tag: string | null) => {
+    dispatch({ type: 'SET_SELECTED_TAG', payload: tag });
+  };
+
+  const reorderTasks = (sourceIndex: number, destinationIndex: number) => {
+    dispatch({ type: 'REORDER_TASKS', payload: { sourceIndex, destinationIndex } });
+  };
+
+  const getAllTags = (): string[] => {
+    const tagSet = new Set<string>();
+    state.tasks.forEach(task => {
+      task.tags.forEach(tag => tagSet.add(tag));
+    });
+    return Array.from(tagSet);
   };
 
   const value: TaskContextType = {
@@ -151,6 +198,9 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setFilter,
     setSortBy,
     setSearchTerm,
+    setSelectedTag,
+    reorderTasks,
+    getAllTags,
   };
 
   return (

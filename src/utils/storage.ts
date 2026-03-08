@@ -3,7 +3,25 @@
 import type { Task, StorageData } from '../types';
 
 const STORAGE_KEY = 'todo-list-mvp-storage';
-const STORAGE_VERSION = '1.0';
+const STORAGE_VERSION = '2.0';
+
+/**
+ * 数据迁移函数
+ */
+const migrateData = (tasks: any[]): Task[] => {
+  return tasks.map((task, index) => ({
+    id: task.id,
+    title: task.title,
+    description: task.description || '',
+    completed: task.completed,
+    priority: task.priority || 'medium',
+    dueDate: task.dueDate || null,
+    tags: task.tags || [],
+    order: task.order || index,
+    createdAt: task.createdAt,
+    updatedAt: task.updatedAt,
+  }));
+};
 
 /**
  * 保存数据到本地存储
@@ -31,6 +49,12 @@ export const loadFromLocalStorage = (): Task[] => {
       const data: StorageData = JSON.parse(storedData);
       if (data.version === STORAGE_VERSION) {
         return data.tasks || [];
+      } else {
+        // 数据迁移
+        const migratedTasks = migrateData(data.tasks || []);
+        // 保存迁移后的数据
+        saveToLocalStorage(migratedTasks);
+        return migratedTasks;
       }
     }
   } catch (error) {
