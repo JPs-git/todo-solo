@@ -44,24 +44,3 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           working-directory: ./
           vercel-args: '--prod'
-
-  deploy-version:
-    needs: build-test
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/heads/v')
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Extract branch name
-        id: extract_branch
-        run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
-
-      - name: Deploy to Vercel (Preview)
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: ./
-          alias-domains: ${{ steps.extract_branch.outputs.branch }}-todo-solo
