@@ -1,0 +1,24 @@
+name: Branch Protection
+
+on:
+  push:
+    branches: [ v* ]
+
+jobs:
+  check-merged:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check if branch is merged
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          if git merge-base --is-ancestor $BRANCH_NAME origin/master; then
+            echo "Error: This branch has been merged to master and cannot be pushed"
+            exit 1
+          else
+            echo "Branch is not merged, proceeding with push"
+          fi
