@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import type { Task } from '../types';
-import { useTasks } from '../context/TaskContext';
+import { useTasks } from '../hooks/useTasks';
 import { formatTimestamp } from '../utils/helpers';
 import Modal from './Modal';
 

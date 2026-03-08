@@ -1,6 +1,6 @@
 // src/context/TaskContext.tsx
 
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useReducer, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import type { Task, TaskAction, AppState } from '../types';
@@ -74,7 +74,7 @@ const taskReducer = (state: AppState, action: TaskAction): AppState => {
 };
 
 // Context 类型
-interface TaskContextType {
+export interface TaskContextType {
   state: AppState;
   filteredTasks: Task[];
   addTask: (title: string) => Task;
@@ -160,11 +160,5 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   );
 };
 
-// 自定义 Hook
-export const useTasks = (): TaskContextType => {
-  const context = useContext(TaskContext);
-  if (context === undefined) {
-    throw new Error('useTasks must be used within a TaskProvider');
-  }
-  return context;
-};
+// 导出 Context
+export default TaskContext;

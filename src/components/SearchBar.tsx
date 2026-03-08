@@ -1,7 +1,7 @@
 // src/components/SearchBar.tsx
 
 import React from 'react';
-import { useTasks } from '../context/TaskContext';
+import { useTasks } from '../hooks/useTasks';
 
 const SearchBar: React.FC = () => {
   const { setSearchTerm } = useTasks();

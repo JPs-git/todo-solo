@@ -1,7 +1,7 @@
 // src/components/TaskList.tsx
 
 import React from 'react';
-import { useTasks } from '../context/TaskContext';
+import { useTasks } from '../hooks/useTasks';
 import TaskItem from './TaskItem';
 import EmptyState from './EmptyState';
 

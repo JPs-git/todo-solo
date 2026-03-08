@@ -1,7 +1,7 @@
 // src/components/TaskForm.tsx
 
 import React, { useState } from 'react';
-import { useTasks } from '../context/TaskContext';
+import { useTasks } from '../hooks/useTasks';
 
 const TaskForm: React.FC = () => {
   const { addTask } = useTasks();

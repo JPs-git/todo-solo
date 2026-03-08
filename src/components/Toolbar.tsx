@@ -1,7 +1,7 @@
 // src/components/Toolbar.tsx
 
 import React from 'react';
-import { useTasks } from '../context/TaskContext';
+import { useTasks } from '../hooks/useTasks';
 
 const Toolbar: React.FC = () => {
   const { state, setFilter, setSortBy } = useTasks();
