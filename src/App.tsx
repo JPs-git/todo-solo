@@ -12,7 +12,7 @@ import type { Task } from "./types";
 import "./styles/global.css";
 import "./styles/components.css";
 
-function App() {
+function AppContent() {
   const [isTaskFormOpen, setIsTaskFormOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const { addTask, updateTask } = useTasks();
@@ -28,32 +28,38 @@ function App() {
   };
 
   const handleSaveTask = (task: Task) => {
-    if (task.id) {
+    if (task.createdAt === task.updatedAt && task.createdAt === task.order) {
+      // 新任务：createdAt、updatedAt和order都相同（都是当前时间戳）
+      addTask(task);
+    } else {
       // 更新现有任务
       updateTask(task.id, task);
-    } else {
-      // 添加新任务
-      addTask(task);
     }
     handleCloseTaskForm();
   };
 
   return (
-    <TaskProvider>
-      <div className="app">
-        <Header />
-        <div className="container">
-          <Toolbar />
-          <TaskList onEditTask={handleOpenTaskForm} />
-        </div>
-        <Footer onAddTask={() => handleOpenTaskForm()} />
-        <TaskForm
-          task={editingTask}
-          onSave={handleSaveTask}
-          onCancel={handleCloseTaskForm}
-          isOpen={isTaskFormOpen}
-        />
+    <div className="app">
+      <Header />
+      <div className="container">
+        <Toolbar />
+        <TaskList onEditTask={handleOpenTaskForm} />
       </div>
+      <Footer onAddTask={() => handleOpenTaskForm()} />
+      <TaskForm
+        task={editingTask}
+        onSave={handleSaveTask}
+        onCancel={handleCloseTaskForm}
+        isOpen={isTaskFormOpen}
+      />
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <TaskProvider>
+      <AppContent />
     </TaskProvider>
   );
 }

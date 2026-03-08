@@ -75,7 +75,7 @@ const taskReducer = (state: AppState, action: TaskAction): AppState => {
         selectedTag: action.payload,
       };
     
-    case 'REORDER_TASKS':
+    case 'REORDER_TASKS': {
       const { sourceIndex, destinationIndex } = action.payload;
       const newTasks = [...state.tasks];
       const [movedTask] = newTasks.splice(sourceIndex, 1);
@@ -90,6 +90,7 @@ const taskReducer = (state: AppState, action: TaskAction): AppState => {
         ...state,
         tasks: reorderedTasks,
       };
+    }
     
     default:
       return state;
