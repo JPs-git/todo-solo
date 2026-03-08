@@ -85,7 +85,11 @@ const TaskForm: React.FC<TaskFormProps> = ({
     <div className="task-form-modal">
       <div className="task-form-modal__content">
         <h2>{task ? "编辑任务" : "添加新任务"}</h2>
-        <form onSubmit={handleSubmit} className="task-form">
+        <form
+          onSubmit={handleSubmit}
+          className="task-form"
+          data-testid="task-form"
+        >
           <div className="form-group">
             <label htmlFor="title">任务标题</label>
             <input
