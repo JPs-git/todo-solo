@@ -11,7 +11,7 @@ import { filterTasks, sortTasks } from "../utils/helpers";
 const initialState: AppState = {
   tasks: loadFromLocalStorage(),
   filter: "all",
-  sortBy: "createdAt",
+  sortBy: "order",
   searchTerm: "",
   selectedTag: null,
   selectedTaskIds: [],
