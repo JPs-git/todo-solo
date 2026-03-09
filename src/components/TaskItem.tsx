@@ -153,7 +153,13 @@ const TaskItem: React.FC<TaskItemProps> = ({
 
       <div className="task-card__content">
         <div className="task-card__header">
-          <div className="task-card__title">{task.title}</div>
+          <div
+            className="task-card__title"
+            onClick={handleEdit}
+            style={{ cursor: "pointer" }}
+          >
+            {task.title}
+          </div>
           <div
             className="task-card__priority"
             style={{ backgroundColor: getPriorityColor(task.priority) }}
