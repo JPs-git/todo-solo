@@ -227,7 +227,7 @@ test.describe('Todo-List v0.2 全流程集成测试', () => {
       await page.waitForTimeout(500);
 
       // 验证筛选结果
-      let taskCards = page.locator('.task-card');
+      const taskCards = page.locator('.task-card');
       await expect(taskCards).toHaveCount(2);
       await expect(taskCards.first()).toContainText('苹果');
       await expect(taskCards.nth(1)).toContainText('苹果');

@@ -1,6 +1,6 @@
 // src/components/TaskForm.tsx
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import type { Task } from "../types";
 
 interface TaskFormProps {
@@ -16,31 +16,21 @@ const TaskForm: React.FC<TaskFormProps> = ({
   onCancel,
   isOpen,
 }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState<"high" | "medium" | "low">("medium");
-  const [dueDate, setDueDate] = useState<string>("");
-  const [tags, setTags] = useState<string>("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // 直接在组件渲染时设置初始值，避免在 useEffect 中调用 setState
+  const initialTitle = task?.title || "";
+  const initialDescription = task?.description || "";
+  const initialPriority = task?.priority || "medium";
+  const initialDueDate = task?.dueDate
+    ? new Date(task.dueDate).toISOString().split("T")[0]
+    : "";
+  const initialTags = task?.tags.join(",") || "";
 
-  useEffect(() => {
-    if (task) {
-      setTitle(task.title);
-      setDescription(task.description);
-      setPriority(task.priority);
-      setDueDate(
-        task.dueDate ? new Date(task.dueDate).toISOString().split("T")[0] : ""
-      );
-      setTags(task.tags.join(","));
-    } else {
-      setTitle("");
-      setDescription("");
-      setPriority("medium");
-      setDueDate("");
-      setTags("");
-    }
-    setIsSubmitting(false);
-  }, [task]);
+  const [title, setTitle] = useState<string>(initialTitle);
+  const [description, setDescription] = useState<string>(initialDescription);
+  const [priority, setPriority] = useState<Priority>(initialPriority);
+  const [dueDate, setDueDate] = useState<string>(initialDueDate);
+  const [tags, setTags] = useState<string>(initialTags);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
