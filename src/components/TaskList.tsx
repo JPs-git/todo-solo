@@ -11,7 +11,15 @@ interface TaskListProps {
 }
 
 const TaskList: React.FC<TaskListProps> = ({ onEditTask }) => {
-  const { filteredTasks, toggleTask, deleteTask, reorderTasks } = useTasks();
+  const {
+    filteredTasks,
+    toggleTask,
+    deleteTask,
+    reorderTasks,
+    selectTask,
+    deselectTask,
+    isTaskSelected,
+  } = useTasks();
 
   if (filteredTasks.length === 0) {
     return <EmptyState />;
@@ -36,6 +44,9 @@ const TaskList: React.FC<TaskListProps> = ({ onEditTask }) => {
           onDelete={deleteTask}
           index={index}
           moveTask={handleMoveTask}
+          isSelected={isTaskSelected(task.id)}
+          onSelect={selectTask}
+          onDeselect={deselectTask}
         />
       ))}
     </div>

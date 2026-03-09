@@ -12,6 +12,9 @@ interface TaskItemProps {
   onDelete: (id: string) => void;
   index: number;
   moveTask: (dragIndex: number, hoverIndex: number) => void;
+  isSelected: boolean;
+  onSelect: (id: string) => void;
+  onDeselect: (id: string) => void;
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({
@@ -21,6 +24,9 @@ const TaskItem: React.FC<TaskItemProps> = ({
   onDelete,
   index,
   moveTask,
+  isSelected,
+  onSelect,
+  onDeselect,
 }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -62,11 +68,20 @@ const TaskItem: React.FC<TaskItemProps> = ({
     }
   };
 
+  const handleSelectionToggle = (e: React.MouseEvent | React.KeyboardEvent) => {
+    e.stopPropagation();
+    if (isSelected) {
+      onDeselect(task.id);
+    } else {
+      onSelect(task.id);
+    }
+  };
+
   return (
     <div
       className={`task-card ${task.completed ? "task-card--completed" : ""} ${
         isDragging ? "task-card--dragging" : ""
-      }`}
+      } ${isSelected ? "task-card--selected" : ""}`}
       draggable
       onDragStart={(e) => {
         e.dataTransfer.setData("text/plain", index.toString());
@@ -76,6 +91,37 @@ const TaskItem: React.FC<TaskItemProps> = ({
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
+      <div
+        className={`task-card__selection-checkbox ${
+          isSelected ? "task-card__selection-checkbox--checked" : ""
+        }`}
+        onClick={handleSelectionToggle}
+        role="checkbox"
+        aria-checked={isSelected}
+        aria-label={`选择任务: ${task.title}`}
+        tabIndex={0}
+        onKeyPress={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleSelectionToggle(e);
+          }
+        }}
+      >
+        {isSelected && (
+          <svg
+            className="task-card__selection-checkbox-icon"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clipRule="evenodd"
+            />
+          </svg>
+        )}
+      </div>
+
       <div
         className={`task-card__checkbox ${
           task.completed ? "task-card__checkbox--checked" : ""

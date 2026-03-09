@@ -157,6 +157,57 @@
   cursor: grabbing;
 }
 
+.task-card--selected {
+  border-color: var(--color-primary);
+  border-width: 2px;
+  background-color: #eff6ff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.task-card__selection-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-border-secondary);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.task-card__selection-checkbox:hover {
+  background-color: var(--color-hover-bg);
+  border-color: var(--color-primary);
+}
+
+.task-card__selection-checkbox--checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  animation: checkboxBounce 0.3s ease-out;
+}
+
+@keyframes checkboxBounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.task-card__selection-checkbox-icon {
+  width: 12px;
+  height: 12px;
+  color: var(--color-bg-primary);
+}
+
 .task-card__checkbox {
   width: 20px;
   height: 20px;
