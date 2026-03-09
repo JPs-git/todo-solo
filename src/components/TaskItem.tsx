@@ -101,11 +101,12 @@ const TaskItem: React.FC<TaskItemProps> = ({
         aria-label={`选择任务: ${task.title}`}
         tabIndex={0}
         data-testid={`task-item-${task.id}-select`}
-        onKeyPress={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
             e.preventDefault();
             handleSelectionToggle(e);
           }
+          // 空格键不处理，让全局快捷键处理标记完成功能
         }}
       >
         {isSelected && (
