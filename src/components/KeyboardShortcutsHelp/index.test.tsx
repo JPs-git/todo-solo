@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import KeyboardShortcutsHelp from "./KeyboardShortcutsHelp";
+import KeyboardShortcutsHelp from "./index";
 
 describe("KeyboardShortcutsHelp", () => {
   beforeEach(() => {

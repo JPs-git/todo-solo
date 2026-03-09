@@ -1,6 +1,7 @@
 // src/components/Footer.tsx
 
 import React from "react";
+import "./index.css";
 
 interface FooterProps {
   onAddTask: () => void;
@@ -8,14 +9,14 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ onAddTask }) => {
   return (
-    <footer className="footer">
+    <footer className="footer bg-white border-t border-gray-200 py-4 flex items-center justify-center">
       <button
-        className="footer__add-btn"
+        className="footer__add-btn bg-primary-500 hover:bg-primary-600 text-white font-medium py-3 px-6 rounded-lg flex items-center space-x-2 transition-all duration-300 transform hover:-translate-y-1 shadow-md hover:shadow-lg"
         onClick={onAddTask}
         aria-label="添加新任务"
       >
         <svg
-          className="footer__add-icon"
+          className="footer__add-icon w-5 h-5"
           viewBox="0 0 20 20"
           fill="currentColor"
         >

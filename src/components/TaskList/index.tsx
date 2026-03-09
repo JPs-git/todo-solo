@@ -1,12 +1,13 @@
 // src/components/TaskList.tsx
 
 import React, { useState } from "react";
-import { useTasks } from "../hooks/useTasks";
-import TaskItem from "./TaskItem";
-import EmptyState from "./EmptyState";
-import BatchToolbar from "./BatchToolbar";
-import Modal from "./Modal";
-import type { Task } from "../types";
+import "./index.css";
+import { useTasks } from "../../hooks/useTasks";
+import TaskItem from "../TaskItem";
+import EmptyState from "../EmptyState";
+import BatchToolbar from "../BatchToolbar";
+import Modal from "../Modal";
+import type { Task } from "../../types";
 
 interface TaskListProps {
   onEditTask: (task: Task) => void;
@@ -65,7 +66,7 @@ const TaskList: React.FC<TaskListProps> = ({ onEditTask }) => {
         onBatchComplete={handleBatchComplete}
         onBatchDelete={handleBatchDelete}
       />
-      <div className="task-list">
+      <div className="task-list space-y-3">
         {filteredTasks.map((task, index) => (
           <TaskItem
             key={task.id}

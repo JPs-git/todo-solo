@@ -1,7 +1,8 @@
 // src/components/Toolbar.tsx
 
 import React from "react";
-import { useTasks } from "../hooks/useTasks";
+import "./index.css";
+import { useTasks } from "../../hooks/useTasks";
 
 const Toolbar: React.FC = () => {
   const { state, setFilter, setSortBy, setSelectedTag, getAllTags } =
@@ -29,9 +30,9 @@ const Toolbar: React.FC = () => {
   };
 
   return (
-    <div className="toolbar">
+    <div className="toolbar bg-gray-50 p-3 rounded-lg mb-5 flex items-center space-x-4">
       <select
-        className="toolbar__select"
+        className="toolbar__select px-3 py-2 border border-gray-300 rounded-md text-sm bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
         value={state.filter}
         onChange={handleFilterChange}
         aria-label="筛选任务"
@@ -42,7 +43,7 @@ const Toolbar: React.FC = () => {
       </select>
 
       <select
-        className="toolbar__select"
+        className="toolbar__select px-3 py-2 border border-gray-300 rounded-md text-sm bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
         value={state.sortBy}
         onChange={handleSortChange}
         aria-label="排序任务"
@@ -55,7 +56,7 @@ const Toolbar: React.FC = () => {
       </select>
 
       <select
-        className="toolbar__select"
+        className="toolbar__select px-3 py-2 border border-gray-300 rounded-md text-sm bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
         value={state.selectedTag || "all"}
         onChange={handleTagChange}
         aria-label="按标签筛选"

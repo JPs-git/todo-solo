@@ -1,0 +1,62 @@
+/* Modal 组件样式 */
+
+.modal {
+  width: 400px;
+  background-color: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-l);
+}
+
+.modal__title {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-h2);
+  margin-bottom: var(--spacing-s);
+}
+
+.modal__content {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-small);
+  margin-bottom: var(--spacing-l);
+}
+
+.modal__actions {
+  display: flex;
+  gap: var(--spacing-m);
+  justify-content: flex-end;
+}
+
+.modal__btn {
+  width: 120px;
+  height: var(--button-height-md);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.modal__btn--primary {
+  background-color: var(--color-primary);
+  border: none;
+  color: var(--color-bg-primary);
+}
+
+.modal__btn--primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.modal__btn--secondary {
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-primary);
+  color: var(--color-text-primary);
+}
+
+.modal__btn--secondary:hover {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border-secondary);
+}

@@ -1,7 +1,8 @@
 // src/components/Header.tsx
 
 import React from "react";
-import SearchBar from "./SearchBar";
+import SearchBar from "../SearchBar";
+import "./index.css";
 
 const Header: React.FC = () => {
   return (

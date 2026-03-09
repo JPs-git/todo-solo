@@ -1,0 +1,58 @@
+/* Toolbar 组件样式 */
+
+.toolbar {
+  height: var(--toolbar-height);
+  background-color: var(--color-bg-secondary);
+  padding: 0 var(--spacing-l);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-m);
+}
+
+.toolbar__select {
+  height: 32px;
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 6px;
+  padding: 0 var(--spacing-m);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.toolbar__select:hover {
+  border-color: var(--color-border-secondary);
+}
+
+.toolbar__select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+}
+
+/* 响应式 */
+@media (max-width: 640px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-s);
+  }
+
+  .toolbar__select {
+    width: 100%;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+  .toolbar {
+    padding: 0 var(--spacing-l);
+  }
+}
+
+@media (min-width: 1024px) {
+  .toolbar {
+    padding: 0 var(--spacing-xxl);
+  }
+}

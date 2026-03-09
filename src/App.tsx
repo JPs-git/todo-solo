@@ -7,15 +7,18 @@ import {
   useKeyboardShortcuts,
   type ShortcutConfig,
 } from "./hooks/useKeyboardShortcuts";
-import Header from "./components/Header";
-import Toolbar from "./components/Toolbar";
-import TaskList from "./components/TaskList";
-import Footer from "./components/Footer";
-import TaskForm from "./components/TaskForm";
-import KeyboardShortcutsHelp from "./components/KeyboardShortcutsHelp";
+import {
+  Header,
+  Toolbar,
+  TaskList,
+  Footer,
+  TaskForm,
+  KeyboardShortcutsHelp,
+} from "./components";
 import type { Task } from "./types";
-import "./styles/global.css";
-import "./styles/components.css";
+import "./index.css"
+// import "./styles/global.css";
+// import "./styles/components.css";
 
 function AppContent() {
   const [isTaskFormOpen, setIsTaskFormOpen] = useState(false);

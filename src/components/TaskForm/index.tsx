@@ -1,7 +1,8 @@
 // src/components/TaskForm.tsx
 
 import React, { useState } from "react";
-import type { Task, Priority } from "../types";
+import "./index.css";
+import type { Task, Priority } from "../../types";
 
 interface TaskFormProps {
   task: Task | null;
@@ -67,7 +68,7 @@ const TaskForm: React.FC<TaskFormProps> = ({
   }
 
   return (
-    <div className="task-form-modal fixed inset-0 bg-black opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="task-form-modal fixed inset-0  opacity-50 flex items-center justify-center z-50 p-4">
       <div className="task-form-modal__content bg-white rounded-lg shadow-xl max-w-md w-full max-h-[80vh] overflow-y-auto animate-fade-in">
         <h2 className="text-xl font-semibold text-gray-800 p-6 border-b border-gray-200">
           {task ? "编辑任务" : "添加新任务"}

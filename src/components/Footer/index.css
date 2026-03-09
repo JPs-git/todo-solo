@@ -1,0 +1,62 @@
+/* Footer 组件样式 */
+
+.footer {
+  height: var(--footer-height);
+  background-color: var(--color-bg-primary);
+  border-top: 1px solid var(--color-border-primary);
+  padding: 0 var(--spacing-l);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer__add-btn {
+  width: 200px;
+  height: var(--button-height-lg);
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--color-bg-primary);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-s);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.footer__add-btn:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.footer__add-btn:active {
+  background-color: var(--color-primary-active);
+}
+
+.footer__add-btn:disabled {
+  background-color: var(--color-text-tertiary);
+  cursor: not-allowed;
+}
+
+.footer__add-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-bg-primary);
+}
+
+/* 响应式 */
+@media (max-width: 640px) {
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-index-dropdown);
+  }
+
+  .footer__add-btn {
+    width: 100%;
+  }
+}

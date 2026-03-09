@@ -1,7 +1,7 @@
 // src/components/Modal.tsx
 
 import React, { useEffect, useRef } from "react";
-import "./Modal/index.css";
+import "./index.css";
 
 interface ModalProps {
   isOpen: boolean;
@@ -72,7 +72,7 @@ const Modal: React.FC<ModalProps> = ({
   }
 
   return (
-    <div className="modal-overlay fixed inset-0  opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="modal-overlay fixed inset-0 bg-black opacity-50 flex items-center justify-center z-50 p-4">
       <div
         className="modal bg-white rounded-lg shadow-xl max-w-md w-full animate-fade-in"
         ref={modalRef}
