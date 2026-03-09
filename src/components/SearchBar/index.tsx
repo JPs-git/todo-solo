@@ -12,9 +12,9 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className="header__search relative">
+    <div className="header__search">
       <svg 
-        className="header__search-icon w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" 
+        className="header__search-icon" 
         viewBox="0 0 20 20" 
         fill="currentColor"
       >
@@ -26,7 +26,7 @@ const SearchBar: React.FC = () => {
       </svg>
       <input
         type="text"
-        className="header__search-input w-72 h-9 border border-gray-300 rounded-full pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent focus:w-80 transition-all duration-300"
+        className="header__search-input"
         placeholder="搜索任务..."
         onChange={handleSearch}
         aria-label="搜索任务"

@@ -6,7 +6,7 @@ import "./index.css";
 
 const Header: React.FC = () => {
   return (
-    <header className="header flex justify-between items-center max-w-4xl mx-auto px-4 bg-white shadow-sm border-b border-gray-200 py-4">
+    <header className="header flex justify-between items-center  mx-auto px-4 bg-white shadow-sm border-b border-gray-200 py-4">
       <div className="header__logo flex items-center space-x-3">
         <svg
           className="header__logo-icon w-8 h-8 text-primary-500"
