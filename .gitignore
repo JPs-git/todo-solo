@@ -25,3 +25,12 @@ dist-ssr
 
 .vercel
 .env*.local
+
+# Playwright 测试相关
+test-results/
+playwright-report/
+playwright/.cache/
+
+# 测试数据
+*.test-data.json
+*.spec-data.json
