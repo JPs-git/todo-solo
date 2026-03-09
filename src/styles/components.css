@@ -111,7 +111,96 @@
   box-shadow: var(--shadow-focus);
 }
 
-/* ========== 任务列表 ========== */
+.batch-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  background-color: #f3f4f6;
+  padding: 0 var(--spacing-l);
+  border-bottom: 1px solid var(--color-border-primary);
+  animation: batchToolbarSlideIn 0.2s ease-out;
+}
+
+@keyframes batchToolbarSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 56px;
+  }
+}
+
+.batch-toolbar__info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s);
+}
+
+.batch-toolbar__checkbox-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-primary);
+}
+
+.batch-toolbar__count {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.batch-toolbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.batch-toolbar__button {
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: none;
+}
+
+.batch-toolbar__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.batch-toolbar__button--secondary {
+  background-color: transparent;
+  color: #374151;
+}
+
+.batch-toolbar__button--secondary:hover:not(:disabled) {
+  background-color: #e5e7eb;
+}
+
+.batch-toolbar__button--primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.batch-toolbar__button--primary:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.batch-toolbar__button--danger {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.batch-toolbar__button--danger:hover:not(:disabled) {
+  background-color: #dc2626;
+}
 
 .task-list {
   padding: var(--spacing-m);
