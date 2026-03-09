@@ -1,6 +1,11 @@
 // src/types/index.ts
 
 /**
+ * 优先级类型
+ */
+export type Priority = "high" | "medium" | "low";
+
+/**
  * 任务数据模型
  */
 export interface Task {
@@ -8,7 +13,7 @@ export interface Task {
   title: string; // 任务标题
   description: string; // 任务描述和备注
   completed: boolean; // 完成状态
-  priority: "high" | "medium" | "low"; // 优先级
+  priority: Priority; // 优先级
   dueDate: number | null; // 截止日期时间戳（毫秒）
   tags: string[]; // 标签列表
   order: number; // 排序顺序

@@ -1,7 +1,7 @@
 // src/components/TaskForm.tsx
 
 import React, { useState } from "react";
-import type { Task } from "../types";
+import type { Task, Priority } from "../types";
 
 interface TaskFormProps {
   task: Task | null;
