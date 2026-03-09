@@ -1,6 +1,6 @@
 // src/components/TaskForm.tsx
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import type { Task } from "../types";
 
 interface TaskFormProps {
@@ -16,27 +16,31 @@ const TaskForm: React.FC<TaskFormProps> = ({
   onCancel,
   isOpen,
 }) => {
-  const initialTitle = useMemo(() => task?.title || "", [task]);
-  const initialDescription = useMemo(() => task?.description || "", [task]);
-  const initialPriority = useMemo(
-    () => task?.priority || ("medium" as const),
-    [task]
-  );
-  const initialDueDate = useMemo(
-    () =>
-      task?.dueDate ? new Date(task.dueDate).toISOString().split("T")[0] : "",
-    [task]
-  );
-  const initialTags = useMemo(() => task?.tags.join(",") || "", [task]);
-
-  const [title, setTitle] = useState(initialTitle);
-  const [description, setDescription] = useState(initialDescription);
-  const [priority, setPriority] = useState<"high" | "medium" | "low">(
-    initialPriority
-  );
-  const [dueDate, setDueDate] = useState<string>(initialDueDate);
-  const [tags, setTags] = useState<string>(initialTags);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState<"high" | "medium" | "low">("medium");
+  const [dueDate, setDueDate] = useState<string>("");
+  const [tags, setTags] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (task) {
+      setTitle(task.title);
+      setDescription(task.description);
+      setPriority(task.priority);
+      setDueDate(
+        task.dueDate ? new Date(task.dueDate).toISOString().split("T")[0] : ""
+      );
+      setTags(task.tags.join(","));
+    } else {
+      setTitle("");
+      setDescription("");
+      setPriority("medium");
+      setDueDate("");
+      setTags("");
+    }
+    setIsSubmitting(false);
+  }, [task]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,6 +69,7 @@ const TaskForm: React.FC<TaskFormProps> = ({
     };
 
     onSave(taskData);
+    setIsSubmitting(false);
   };
 
   if (!isOpen) {
