@@ -46,22 +46,23 @@ const KeyboardShortcutsHelp: React.FC<KeyboardShortcutsHelpProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="keyboard-shortcuts-modal" onClick={onClose}>
+    <div className="keyboard-shortcuts-modal" data-testid="keyboard-shortcuts-help" onClick={onClose}>
       <div
         className="keyboard-shortcuts-modal__content"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="keyboard-shortcuts-modal__header">
-          <h2 className="keyboard-shortcuts-modal__title">键盘快捷键</h2>
+          <h2 className="keyboard-shortcuts-modal__title" data-testid="keyboard-shortcuts-title">键盘快捷键</h2>
           <button
             className="keyboard-shortcuts-modal__close"
             onClick={onClose}
             aria-label="关闭"
+            data-testid="keyboard-shortcuts-close"
           >
             ×
           </button>
         </div>
-        <div className="keyboard-shortcuts-modal__body">
+        <div className="keyboard-shortcuts-modal__body" data-testid="keyboard-shortcuts-list">
           {shortcutGroups.map((group, groupIndex) => (
             <div key={groupIndex} className="keyboard-shortcuts-group">
               <h3 className="keyboard-shortcuts-group__title">{group.title}</h3>

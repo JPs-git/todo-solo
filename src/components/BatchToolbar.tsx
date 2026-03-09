@@ -22,7 +22,7 @@ const BatchToolbar: React.FC<BatchToolbarProps> = ({
   }
 
   return (
-    <div className="batch-toolbar">
+    <div className="batch-toolbar" data-testid="batch-toolbar">
       <div className="batch-toolbar__info">
         <svg
           className="batch-toolbar__checkbox-icon"
@@ -35,7 +35,7 @@ const BatchToolbar: React.FC<BatchToolbarProps> = ({
             clipRule="evenodd"
           />
         </svg>
-        <span className="batch-toolbar__count">
+        <span className="batch-toolbar__count" data-testid="batch-toolbar-count">
           已选择 {selectedCount} 个任务
         </span>
       </div>
@@ -44,24 +44,28 @@ const BatchToolbar: React.FC<BatchToolbarProps> = ({
           className="batch-toolbar__button batch-toolbar__button--secondary"
           onClick={onSelectAll}
           disabled={selectedCount === totalCount}
+          data-testid="select-all-button"
         >
           全选
         </button>
         <button
           className="batch-toolbar__button batch-toolbar__button--secondary"
           onClick={onDeselectAll}
+          data-testid="deselect-all-button"
         >
           取消全选
         </button>
         <button
           className="batch-toolbar__button batch-toolbar__button--primary"
           onClick={onBatchComplete}
+          data-testid="batch-complete-button"
         >
           完成
         </button>
         <button
           className="batch-toolbar__button batch-toolbar__button--danger"
           onClick={onBatchDelete}
+          data-testid="batch-delete-button"
         >
           删除
         </button>

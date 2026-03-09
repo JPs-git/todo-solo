@@ -100,6 +100,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
         aria-checked={isSelected}
         aria-label={`选择任务: ${task.title}`}
         tabIndex={0}
+        data-testid={`task-item-${task.id}-select`}
         onKeyPress={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
