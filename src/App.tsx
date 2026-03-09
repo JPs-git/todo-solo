@@ -1,6 +1,6 @@
 // src/App.tsx
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { TaskProvider } from "./context/TaskContext";
 import { useTasks } from "./hooks/useTasks";
 import {
@@ -30,7 +30,6 @@ function AppContent() {
     deleteSelectedTasks,
     toggleSelectedTasks,
   } = useTasks();
-  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const handleOpenTaskForm = (task: Task | null = null) => {
     setEditingTask(task);

@@ -1,6 +1,6 @@
 // src/components/TaskForm.tsx
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import type { Task } from "../types";
 
 interface TaskFormProps {
@@ -16,36 +16,27 @@ const TaskForm: React.FC<TaskFormProps> = ({
   onCancel,
   isOpen,
 }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState<"high" | "medium" | "low">("medium");
-  const [dueDate, setDueDate] = useState<string>("");
-  const [tags, setTags] = useState<string>("");
+  const initialTitle = useMemo(() => task?.title || "", [task]);
+  const initialDescription = useMemo(() => task?.description || "", [task]);
+  const initialPriority = useMemo(
+    () => task?.priority || ("medium" as const),
+    [task]
+  );
+  const initialDueDate = useMemo(
+    () =>
+      task?.dueDate ? new Date(task.dueDate).toISOString().split("T")[0] : "",
+    [task]
+  );
+  const initialTags = useMemo(() => task?.tags.join(",") || "", [task]);
+
+  const [title, setTitle] = useState(initialTitle);
+  const [description, setDescription] = useState(initialDescription);
+  const [priority, setPriority] = useState<"high" | "medium" | "low">(
+    initialPriority
+  );
+  const [dueDate, setDueDate] = useState<string>(initialDueDate);
+  const [tags, setTags] = useState<string>(initialTags);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const resetForm = () => {
-    setTitle("");
-    setDescription("");
-    setPriority("medium");
-    setDueDate("");
-    setTags("");
-    setIsSubmitting(false);
-  };
-
-  // 当任务变化时更新表单
-  useEffect(() => {
-    if (task) {
-      setTitle(task.title);
-      setDescription(task.description);
-      setPriority(task.priority);
-      setDueDate(
-        task.dueDate ? new Date(task.dueDate).toISOString().split("T")[0] : ""
-      );
-      setTags(task.tags.join(","));
-    } else {
-      resetForm();
-    }
-  }, [task, isOpen]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,7 +65,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
     };
 
     onSave(taskData);
-    resetForm();
   };
 
   if (!isOpen) {
@@ -86,6 +76,7 @@ const TaskForm: React.FC<TaskFormProps> = ({
       <div className="task-form-modal__content">
         <h2>{task ? "编辑任务" : "添加新任务"}</h2>
         <form
+          key={task?.id || "new"}
           onSubmit={handleSubmit}
           className="task-form"
           data-testid="task-form"
